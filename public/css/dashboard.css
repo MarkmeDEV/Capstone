@@ -1,0 +1,409 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+*     {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+}
+
+body  {
+      min-height: 100vh;
+      width: 100%;
+}
+
+.sidebar    {
+      height: 100%;
+      position: fixed;
+      width: 240px;
+      background-image: linear-gradient(#F2789F, #F999B7);
+      /* background: #822659; */
+      transition: all 0.5s ease;
+      border-right: 1px solid #FBE5E5;
+}
+
+.sidebar.active    {
+      width: 60px;
+
+}
+
+.sidebar .logo-details  {
+      height: 80px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+}
+
+div.paginate      {
+      width: 100%;
+      margin: auto ;
+      background-color: #555;
+
+}
+
+.sidebar .logo-details i      {
+      font-size: 28px;
+      font-weight: 500;
+      color: #fff;
+      min-width: 60px;
+      text-align: center;
+}
+
+.sidebar .logo-details .logo_name   {
+      font-size: 24px;
+      font-weight: 900;
+      color: #fff;
+      white-space: nowrap;
+
+}
+
+.sidebar .nav-links     {
+      margin-top: 16px;
+}
+
+.sidebar .nav-links li  {
+      height: 50px;
+      width: 100%; 
+      list-style: none;
+}
+
+.sidebar .nav-links li a {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      transition: all 0.4s ease;
+}
+
+.sidebar .nav-links li a:hover      {
+      background:  #ff0352;
+}
+
+.sidebar .nav-links li a i    {
+      min-width: 60px;
+      text-align: center;
+      color: #fff;    
+      font-size: 18px;
+}
+
+.sidebar .nav-links li a .link_name     {
+      color: #fff;
+      font-size: 15px;
+      font-weight: bold;
+      white-space: nowrap;
+}
+
+ /* HOME SECTION CSS */
+
+ .home-section    {
+       background: #f5f5f5;
+       position: relative;
+       min-height: 100vh;
+       width: calc(100% - 240px);
+       left: 240px;
+       transition: all 0.5s ease;
+
+ }
+
+.sidebar.active ~ .home-section     {
+      width: calc(100% - 60px);
+      left: 60px;
+      transition: all 0.5s ease;
+}     
+
+ .home-section nav      {
+      height: 80px;
+      background: #fff;
+      padding: 0 20px;
+      display: flex;
+      align-items: center; 
+      justify-content: space-between;
+ }
+
+
+
+ .home-section nav .profile-details {
+       display: flex;
+       align-items: center;
+       height: 50px;
+       min-width: 190px;
+       background: #f5f6fa;
+       border: 2px solid #EFEEF1;
+       border-radius: 6px;
+       padding: 0 15px 0 2px;
+       cursor: pointer;
+
+ }
+
+ .home-section nav .profile-details img{
+       height: 40px;
+       width: 40px;
+       object-fit: cover;
+       border-radius: 6px;
+ }
+
+ .home-section nav .profile-details .admin-name{
+      font-size:15px;
+      font-weight: 500;
+      color: #333;
+      margin: 0 10px;
+      white-space: nowrap;
+}
+
+
+.home-section nav .profile-details i{
+      color: #333;
+      font-size: 25px;
+}
+
+/* Main Content */
+
+.home-section .main-content{
+      max-width: 100%;
+      padding: 100px 50px 0 50px;
+      align-items: center;
+}
+
+
+.home-section .main-content table.content-table    {
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 13px;
+      width: 100%;
+      border-radius: 5px 5px 0 0;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.home-section .main-content .content-table thead tr  {
+      background-color: #fea993;
+      border-bottom: 1px solid #fe7b7c ;
+      text-align: left;
+      color: black;
+      font-weight: 900;
+      font-size: 15px;
+
+}
+
+.home-section .main-content .content-table thead th, .home-section .main-content .content-table thead td    {
+      padding: 12px 15px;
+
+}
+
+.home-section .main-content .content-table tbody tr {
+      border-bottom: solid 1px #555;
+      color: black;
+      font-weight: bold;
+
+}
+
+.home-section .main-content .content-table tbody tr td {
+      padding: 20px;
+}
+
+.home-section .main-content .content-table tbody tr td i {
+      color: #f10c45;
+      font-size: 18px;
+}
+
+
+
+
+.home-section .main-content .content-table tbody tr:last-of-type  {
+      border-bottom: 2px solid #fea993;
+}
+
+.home-section .main-content .user-block   {
+      width: 100%;
+      height: 100%;
+}
+
+.home-section .main-content .search-user  {
+      position: relative;
+      background: #fea993;
+      margin-left: 65%;
+      border-radius: 50px;
+      width: 200px;
+      display: inline-block;
+}
+
+
+
+.appointment      {
+      text-decoration: none;
+      color: black;
+}
+
+
+
+
+
+
+.home-section .main-content .search-user  {
+      position: relative;
+      background: #fea993;
+      margin-left: 65%;
+      border-radius: 50px;
+      width: 200px;
+      display: inline-block;
+}
+
+.home-section .main-content .search-appointments  {
+      position: relative;
+      background: #fea993;
+      margin-left: 30%;
+      border-radius: 50px;
+      width: 200px;
+      display: inline-block;
+}
+
+
+.search-user form {
+      align-items: right;
+      justify-content: right;
+      position: relative;
+      border-radius: 50px;
+      display: inline;
+}
+
+.search-appointments form {
+      align-items: right;
+      justify-content: right;
+      position: relative;
+      border-radius: 50px;
+      display: inline;
+}
+
+.search-user form input{
+     border: 3px solid #fea993;
+     width: 180px;
+     height: 43px;
+     border-radius: 50px 0 0 50px;
+     padding: 0 10px;
+}
+
+.search-appointments form input{
+      border: 3px solid #fea993;
+      width: 180px;
+      height: 43px;
+      border-radius: 50px 0 0 50px;
+      padding: 0 10px;
+ }
+
+
+.home-section .main-content .content-table .description     {
+      width: 350px;
+      font-size: 12px;
+}
+
+.card-footer {
+      color: black;
+      background-color: #FEE3EC !important;
+}
+
+
+
+
+
+
+
+
+/* End of Main Content */
+@media (max-width: 675px)     {
+      
+}
+
+@media (max-width: 758px)     {
+      .home-section nav .profile-details  .admin-name,   .home-section nav .profile-details i   {
+            display: none;
+      }
+
+      .home-section nav .profile-details  {
+            min-width: 50px;
+            height: 50px;
+      }
+
+      .home-section nav .profile-details {
+
+            padding: 0 0 0 2px;
+     
+      }
+
+}
+
+@media (max-width: 1296px)    {
+      .home-section .main-content .search-user  {
+            margin-left: 40%;
+      }
+
+      .home-section .main-content .search-appointments  {
+
+            margin-left: 15%;
+            border-radius: 50px;
+            width: 200px;
+
+      }
+}
+
+@media (max-width: 1211px)    {
+      .home-section .main-content .content-table .address,  .home-section .main-content .content-table .gender, .home-section .main-content .content-table .email {
+            display: none;
+      }
+
+      .home-section .main-content .search-user  {
+            margin-left: 45%;
+      }
+
+   
+
+      .search-user form input{
+           width: 160px;
+           height: 43px;
+      }
+
+
+
+      .home-section .main-content .search-user  {
+            width: 180px;
+      }
+}
+
+@media (max-width: 942px)    {
+      .home-section .main-content .search-user  {
+            margin-left: 30%;
+
+      }
+
+
+
+}
+
+@media (max-width: 786px)    {
+      .home-section .main-content .search-user  {
+            margin-left: 50%;
+      }
+
+      .search-user form input{
+           width: 130px;
+           height: 35px;
+      }
+
+     
+      .home-section .main-content .search-user  {
+            width: 150px;
+      }
+
+
+      .home-section .main-content table.content-table    {
+      border-collapse: collapse;
+      margin: 15px 0;
+      font-size: 0.7em;
+      width: 100%;
+      border-radius: 5px 5px 0 0;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      }
+}
+
