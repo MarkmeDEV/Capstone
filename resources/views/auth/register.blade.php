@@ -134,10 +134,10 @@
                         <div class="card card-shadow">
                             <div class="card-header text-center"><strong>{{ __('Register') }}</strong></div>
                             <div class="card-body">
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" action="{{ route('store-user-information') }}">
                                     @csrf
 
-                                    <div class="row mb-3">
+                                    <!-- <div class="row mb-3">
                                         <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
                                         <div class="col-md-6">
@@ -149,7 +149,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="row mb-3">
                                         <label for="fname" class="col-md-4 col-form-label text-md-end">First Name</label>
@@ -208,10 +208,10 @@
                                     </div>
                                     
                                     <div class="row mb-3">
-                                        <label for="lname" class="col-md-4 col-form-label text-md-end">Phone Number</label>
+                                        <label for="phone-number" class="col-md-4 col-form-label text-md-end">Phone Number</label>
 
                                         <div class="col-md-6">
-                                            <input id="lname" type="text" class="form-control @error('name') is-invalid @enderror" name="lname" required autocomplete="middle-name" autofocus>
+                                            <input id="phone-number" type="text" class="form-control @error('name') is-invalid @enderror" name="phone_number" required autocomplete="middle-name" autofocus>
 
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
@@ -222,10 +222,10 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="lname" class="col-md-4 col-form-label text-md-end">Street</label>
+                                        <label for="street" class="col-md-4 col-form-label text-md-end">Street</label>
 
                                         <div class="col-md-6">
-                                            <input id="lname" type="text" class="form-control @error('name') is-invalid @enderror" name="lname" required autocomplete="middle-name" autofocus>
+                                            <input id="street" type="text" class="form-control @error('name') is-invalid @enderror" name="street" required autocomplete="middle-name" autofocus>
 
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
@@ -236,10 +236,10 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="lname" class="col-md-4 col-form-label text-md-end">Municipality/City</label>
+                                        <label for="barangay" class="col-md-4 col-form-label text-md-end">Barangay</label>
 
                                         <div class="col-md-6">
-                                            <input id="lname" type="text" class="form-control @error('name') is-invalid @enderror" name="lname" required autocomplete="middle-name" autofocus>
+                                            <input id="barangay" type="text" class="form-control @error('name') is-invalid @enderror" name="barangay" required autocomplete="middle-name" autofocus>
 
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
@@ -250,10 +250,10 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="lname" class="col-md-4 col-form-label text-md-end">Province</label>
+                                        <label for="municipality" class="col-md-4 col-form-label text-md-end">Municipality/City</label>
 
                                         <div class="col-md-6">
-                                            <input id="lname" type="text" class="form-control @error('name') is-invalid @enderror" name="lname" required autocomplete="middle-name" autofocus>
+                                            <input id="municipality" type="text" class="form-control @error('name') is-invalid @enderror" name="municipality" required autocomplete="middle-name" autofocus>
 
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
@@ -264,10 +264,24 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="lname" class="col-md-4 col-form-label text-md-end">Zip Code</label>
+                                        <label for="province" class="col-md-4 col-form-label text-md-end">Province</label>
 
                                         <div class="col-md-6">
-                                            <input id="lname" type="text" class="form-control @error('name') is-invalid @enderror" name="lname" required autocomplete="middle-name" autofocus>
+                                            <input id="province" type="text" class="form-control @error('name') is-invalid @enderror" name="province" required autocomplete="middle-name" autofocus>
+
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="zip-code" class="col-md-4 col-form-label text-md-end">Zip Code</label>
+
+                                        <div class="col-md-6">
+                                            <input id="zip-code" type="text" class="form-control @error('name') is-invalid @enderror" name="zip_code" required autocomplete="middle-name" autofocus>
 
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">

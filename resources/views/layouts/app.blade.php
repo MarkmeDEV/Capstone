@@ -49,6 +49,12 @@
                                     <span class="link_name">Products</span>
                               </a>
                         </li>
+                        <li class="patient-nav">
+                              <a href="{{ route('inventory-list') }}">
+                                    <i class="fa-solid fa-box"></i>
+                                    <span class="link_name">Inventory</span>
+                              </a>
+                        </li>
                         <li class="appointment-nav">
                               <a href="{{ route('cart-show') }}">
                                     <i class="fa-solid fa-cart-shopping"></i>

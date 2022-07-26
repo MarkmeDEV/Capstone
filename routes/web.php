@@ -31,3 +31,12 @@ Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])->n
 Route::get('/orders/show/{id}', [App\Http\Controllers\OrderController::class, 'show'])->name('order-show');
 
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+
+Route::POST('/user/profile', [App\Http\Controllers\UserController::class, 'store'])->name('store-user-information');
+
+
+Route::get('/inventory', [App\Http\Controllers\InventoryController::class, 'index'])->name('inventory-list');
+
+
+
+

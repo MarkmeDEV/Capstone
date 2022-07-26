@@ -20,6 +20,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+
+            $table->unsignedBigInteger('user_personal_information_id')->nullable();
+            $table->foreign('user_personal_information_id')->references('id')->on('user_personal_information')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->unsignedBigInteger('role_id')->nullable();
+            $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
