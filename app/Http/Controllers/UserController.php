@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserPersonalInformation;
-use App\Models\User;
+use App\Models\{
+    User,
+    Cart
+};
 use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -31,6 +35,10 @@ class UserController extends Controller
         $user->name = $userPersonalInformation->first_name . ' ' . 
         $userPersonalInformation->middle_name . ' ' . $userPersonalInformation->last_name;
         $user->save();
+
+        $newCart = new Cart();
+        $newCart->user_id = $user->id;
+        $newCart->save();
 
         return redirect('login');
     }

@@ -51,7 +51,7 @@
                         </li>
                         <li class="patient-nav">
                               <a href="{{ route('inventory-list') }}">
-                                    <i class="fa-solid fa-box"></i>
+                                    <i class="fa-solid fa-cart-flatbed"></i>
                                     <span class="link_name">Inventory</span>
                               </a>
                         </li>
@@ -67,7 +67,12 @@
                                     <span class="link_name">Orders</span>
                               </a>
                         </li>
-
+                        <li class="inventory-nav">
+                              <a href="{{ route('staff-order-list') }}">
+                                    <i class="fa-solid fa-truck"></i>
+                                    <span class="link_name">Orders</span>
+                              </a>
+                        </li>
                         @if(( Auth::user()->user_type_id == 1) || (Auth::user()->user_type_id == 4) || (Auth::user()->user_type_id == 5) || (Auth::user()->user_type_id == 7))
                               <li class="user-nav">
                                     <a href="">

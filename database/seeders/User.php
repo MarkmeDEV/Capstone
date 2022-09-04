@@ -23,5 +23,21 @@ class User extends Seeder
         $user1->user_personal_information_id = 1;
         $user1->role_id = 1;
         $user1->save();
+
+        $user1 = new UserModel();
+        $user1->name = 'Juan Dela Cruz';
+        $user1->email = 'staff@gmail.com';
+        $user1->password = Hash::make('12345678');
+        $user1->user_personal_information_id = 2;
+        $user1->role_id = 2;
+        $user1->save();
+
+        $user1 = new UserModel();
+        $user1->name = 'Customer Dela Cust';
+        $user1->email = 'customer@gmail.com';
+        $user1->password = Hash::make('12345678');
+        $user1->user_personal_information_id = 3;
+        $user1->role_id = 3;
+        $user1->save();
     }
 }

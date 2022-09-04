@@ -17,7 +17,7 @@ use App\Models\{
 use DateTime;
 use DateTimeZone;
 
-class OrderController extends Controller
+class AdminOrderController extends Controller
 {
     function index() {
         $orders = Order::where('user_id', '=' , Auth::user()->id)->get();
@@ -38,7 +38,7 @@ class OrderController extends Controller
             ];
         }
         
-        return view('order.list', ['data' => $data]);     
+        return view('admin.order.list', ['data' => $data]);     
     }
 
     function show($id) {
@@ -77,7 +77,7 @@ class OrderController extends Controller
             'orderStatus' => $orderItem->order_status,
         ];
 
-        return view('order.list', ['data' => $data]);
+        return view('admin.order.list', ['data' => $data]);
     }
 
     function store(Request $request, $id) {

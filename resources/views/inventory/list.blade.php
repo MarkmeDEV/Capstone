@@ -3,91 +3,47 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center mt-3">
-        <div class="col-md-12">
-            <div class="w-100">
-                <table id="cart" class="w-100 mt-5">
+        <div class="card w-100">
+            <div class="card-header">
+                <a href="{{ route('inventory-create') }}" class="btn mb-btn btn-sm float-right">Add Product</a>
+            </div>
+            <div class="card-body">
+                <table id="cart" class="w-100 row-border product-list">
                     <thead>
                         <tr>
-                            <th class="text-center">ID</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Description</th>
                             <th class="text-center">Quantity</th>
-                            <th class="text-center">Total Price</th>
-                            <th class="text-center">Payment Status</th>
+                            <th class="text-center">Unit Price</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">
-                                1
-                            </td>
-                            <td class="text-center">
-                                8
-                            </td>
-                            <td class="text-center">
-                                <i class="fa-solid fa-peso-sign"></i> 999
-                            </td>
-                            <td class="text-center">
-                                To Pay
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm mb-btn" href="{{ route('order-show', '2') }}"><i class="fa-solid fa-eye"></i></a>
-                                <button class="btn btn-sm mb-btn delete-btn" href=""><i class="fa-solid fa-ban"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                2
-                            </td>
-                            <td class="text-center">
-                                8
-                            </td>
-                            <td class="text-center">
-                                <i class="fa-solid fa-peso-sign"></i> 999
-                            </td>
-                            <td class="text-center">
-                                To Pay
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm mb-btn" href="{{ route('order-show', '2') }}"><i class="fa-solid fa-eye"></i></a>
-                                <button class="btn btn-sm mb-btn delete-btn"><i class="fa-solid fa-ban"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                3
-                            </td>
-                            <td class="text-center">
-                                8
-                            </td>
-                            <td class="text-center">
-                                <i class="fa-solid fa-peso-sign"></i> 999
-                            </td>
-                            <td class="text-center">
-                                To Pay
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm mb-btn" href="{{ route('order-show', '2') }}"><i class="fa-solid fa-eye"></i></a>
-                                <button class="btn btn-sm mb-btn delete-btn"><i class="fa-solid fa-ban"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                4
-                            </td>     
-                            <td class="text-center">
-                                8
-                            </td>
-                            <td class="text-center">
-                                <i class="fa-solid fa-peso-sign"></i> 999
-                            </td>
-                            <td class="text-center">
-                                To Pay
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm mb-btn" href="{{ route('order-show', '2') }}"><i class="fa-solid fa-eye"></i></a>
-                                <button class="btn btn-sm mb-btn delete-btn"><i class="fa-solid fa-ban"></i></button>
-                            </td>
-                        </tr>
+                        <tbody>
+                        @foreach($products as $product)
+                            <tr class="mb-bb-1 font-weight-bold">
+                                <td class="text-center">
+                                  {{ $product->name }}
+                                </td>
+                                <td class="text-center">
+                                  {{ $product->description }}
+                                </td>
+                                <td class="text-center">
+                                  {{ $product->quantity }}
+                                </td>
+                                <td class="text-center">
+                                 <i class="fa-solid fa-peso-sign"></i> {{ number_format($product->price, 2) }}
+                                </td>
+                                <td class="text-center">
+								  <form id="delete-user" action="{{ route('inventory-destroy', $product->id) }}" method="POST">
+                                    @csrf
+                                    <a class="btn btn-sm mb-btn" href="{{ route('inventory-show', $product->id) }}"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="#" class="btn btn-sm mb-btn delete-btn"><i class='bx bxs-trash delete' ></i></a>
+                                    <button type="submit" class="submit">
+                                    </button>
+                                  </form>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -97,28 +53,44 @@
 @endsection
     
 @section('after-content')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+  
     <script>
-        $('.delete-btn').click(function() {
-            swal({
-                title: "Are you sure you want to cancel the order?",
-                text: "",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-                    swal("Order has been cancelled!", {
-                    icon: "success",
-                    });
-                }
-            });
+        $('.delete-btn').click(function(e) {
+            // swal({
+            //     title: "Are you sure you want to cancel the order?",
+            //     text: "",
+            //     icon: "warning",
+            //     buttons: true,
+            //     dangerMode: true,
+            // }).then((willDelete) => {
+            //     if (willDelete) {
+            //         swal("Product has been deleted!", {
+            //         icon: "success",
+            //         });
+                    
+            //         const xhttp = new XMLHttpRequest();
+            //         xhttp.onload = function() {
+                        
+            //         }
+            //         xhttp.open("GET", "ajax_info.txt", true);
+            //         xhttp.send();
+            //     }
+            // });
+						$('.submit').click();
         });
 
         $('.checkout-btn').click(function() {
             toastr.success('Products are moved to orders!');
         });
-    </script>
 
+        $(document).ready( function () {
+            $('.product-list').DataTable();
+        });
+
+		$('.submit').hide();
+    </script>
     <style>
     </style>
 @endsection
