@@ -21,7 +21,7 @@
             <div class="col-md-3 mt-5">
                 <a href="{{ route('product-show', $product['id']) }}">
                     <div class="card product-card">
-                        <img src="{{ asset('images/' . ($product['images'][0] ?? '')) }}" class="card-img-top" alt="Product Image">
+                        <img src="{{ asset('images/' . ($product['images'][0] ?? 'alt-product.png')) }}" class="card-img-top" alt="Product Image">
                         <div class="card-body">
                             <h5 class="card-title font-weight-bold">{{ $product['name'] }}</h5>
                             <p class="card-text">{{ $product['description'] }}</p>

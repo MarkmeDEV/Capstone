@@ -12,7 +12,9 @@ use App\Models\{
     OrderProduct,
     PaymentImage,
     Products,
-    ProductImage
+    ProductImage,
+    User,
+    UserPersonalInformation
 };
 use DateTime;
 use DateTimeZone;
@@ -48,6 +50,22 @@ class OrderController extends Controller
         $orderPayment = OrderPayment::where('order_id', '=', $orderItem->id)->get();
         $orderProducts = OrderProduct::where('order_id', '=', $orderItem->id)->get();
 
+        $orderShippingAddress = $orderAddress[0]->street . ', ' . $orderAddress[0]->barangay . ', ' . $orderAddress[0]->city . ', ' . $orderAddress[0]->province;
+        $zipCode = $orderAddress[0]->zip_code;
+        $shippingAddress = [
+            'address' => $orderShippingAddress,
+            'zipCode' => $zipCode
+        ];
+
+        $user = User::find($orderItem->user_id);
+        $user = UserPersonalInformation::find($user->user_personal_information_id);
+        $fullName = $user->first_name . ' ' . ($user->middle_name ?? '') . ' ' . $user->last_name;
+        $contactNumber = $user->phone_number;
+        $user = [
+            'name' => $fullName,
+            'phoneNumber' => $contactNumber
+        ];
+
         $products = [];
         $totalPrice = 0;
         foreach($orderProducts as $order) {
@@ -55,7 +73,7 @@ class OrderController extends Controller
 
             $productImages = ProductImage::where('product_id', '=', $order->product_id)->get();
             $images = [];
-            
+            $is_added_feedback = $order->is_added_feedback;
             foreach($productImages as $image) {
                 $images[] = $image->link;
             }
@@ -66,6 +84,7 @@ class OrderController extends Controller
                 'description' => $product[0]->description,
                 'quantity' => $order->quantity,
                 'price' => $order->price,
+                'is_added_feedback' => $order->is_added_feedback,
                 'images' => $images
             ];
         }
@@ -75,9 +94,11 @@ class OrderController extends Controller
             'products' => $products,
             'totalPrice' => $totalPrice,
             'orderStatus' => $orderItem->order_status,
+            'orderAddress' => $shippingAddress,
+            'user' => $user
         ];
-
-        return view('order.list', ['data' => $data]);
+        // dd($data);
+        return view('order.show', ['data' => $data]);
     }
 
     function store(Request $request, $id) {

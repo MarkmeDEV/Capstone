@@ -2,47 +2,38 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center mt-5">
-        <div class="col-md-4">
-            <img src="{{ asset('img/profile.png') }}" alt="Profile picture" style="width: 100%;">
-        </div>
+    <div class="row justify-content-center mt-5">   
         <div class="col-md-8 d-flex flex-column justify-content-between ">
             <div class="w-100">
                 <div class="row">
-                    <div class="col-md-3">
-                        <p><strong>Name: </strong></p>
-                    </div>
-                    <div class="col-md-9">
-                        <p>{{ $data['userInformation']->first_name}} {{ $data['userInformation']->last_name}}</p>
+                    <div class="col-md-12">
+                        <p><strong>Name: {{ $data['first_name'] }} {{ $data['middle_name'][0] }}.  {{ $data['last_name'] }}</strong></p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <p><strong>Birthday: </strong></p>
-                    </div>
-                    <div class="col-md-9">
-                        <p>{{ $data['userInformation']->birthdate}}</p>
+                    <div class="col-md-12">
+                        <p><strong>Birthday: {{ date('M d, Y', strtotime($data['birthdate']))}}</strong></p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <p><strong>Phone Number: </strong></p>
-                    </div>
-                    <div class="col-md-9">
-                        <p>{{ $data['userInformation']->phone_number}}</p>
+                    <div class="col-md-12">
+                        <p><strong>Phone Number: {{$data['phone_number']}}</strong></p>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <p><strong>Address: </strong></p>
+                    <div class="col-md-12">
+                        <p><strong>Address: {{$data['street']}}, {{$data['barangay']}}, {{$data['municipality']}}, {{$data['province']}} {{$data['zip_code']}}</strong></p>
                     </div>
-                    <div class="col-md-9">
-                        <p>{{ $data['userInformation']->street}}, {{ $data['userInformation']->barangay}}, {{ $data['userInformation']->city}}, {{ $data['userInformation']->province}}</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p><strong>Role: {{$data['role']}}</strong></p>
                     </div>
                 </div>
             </div>
 
             <div class="w-100 text-center">
+                <button class="btn btn-md mb-btn update-btn" type="button" data-toggle="modal" data-target="#exampleModal">Back</button>
                 <button class="btn btn-md mb-btn update-btn" type="button" data-toggle="modal" data-target="#exampleModal">Update</button>
             </div>
         </div>
@@ -51,7 +42,7 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form action="{{ route('profile-update', $data['userInformation']->id) }}" method="POST">
+                        <form action="" method="POST">
                             @csrf
                             <div class="modal-header">
                                 <h3 class="modal-title" id="exampleModalLabel">Update Information</h3>
@@ -99,16 +90,4 @@
                 </div>
             </div>
 </div>
-@endsection
-    
-@section('after-content')
-    <script>
-        $('.submit-btn').click(function(e) {
-            // e.preventDefault();
-            toastr.success('Profile has been updated!');
-        });
-    </script>
-
-    <style>
-    </style>
 @endsection

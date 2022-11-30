@@ -27,6 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if(auth()->user()->role_id != 3) {
+            return redirect()->route('inventory-list');
+        }
         $products = Products::all();
         $productsImages = ProductImage::all();
         $items = [];

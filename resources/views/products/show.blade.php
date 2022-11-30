@@ -5,11 +5,15 @@
     <div class="row justify-content-center mt-3">
         <div class="col-md-4">
             <div class="card float-right w-100 product-images">
-                @foreach($product['images'] as $image)
+                @forelse($product['images'] as $image)
                     <div class="carousel-cell">
-                        <img src="{{ asset('images/' . $image) }}" class="card-img-top" alt="Product Image" style="height: 100%; width: 100%;">
+                        <img src="{{ asset('images/' . ($image ?? 'alt-product.png')) }}" class="card-img-top" alt="Product Image" style="height: 100%; width: 100%;">
                     </div>
-                @endforeach
+                @empty
+                    <div class="carousel-cell">
+                        <img src="{{ asset('images/alt-product.png') }}" class="card-img-top" alt="Product Image" style="height: 100%; width: 100%;">
+                    </div>
+                @endforelse
                 <!-- <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="..." style="height: 100%; width: 100%;"> -->
                 <!-- <div class="card-body">
                     <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
@@ -19,17 +23,19 @@
         </div>
         <div class="col-md-8">
             <div class="card h-100">
-                <div class="card-body" style="background-color: #FEE3EC;">
-                    <h5 class="card-title font-weight-bold">{{ $product['id'] }}</h5>
-                    <p class="card-text">{{ $product['description'] }}</p>
-                    <p class="card-text"><strong>Price:</strong> {{ $product['price'] }}</p>
-                    <p class="card-text"><strong>Stock:</strong> {{ $product['quantity'] }}</p>
-                    <p class="card-text">
-                        <strong>Quantity:</strong> 
-                        <button id="btn-decrease" class="btn mb-border-black-1 mb-btn"style="padding: 0px 5px;"><i class="fa-solid fa-minus"></i></button>
-                        <input id="quantity" type="text" name="quantity" value="0" placeholder="0" style="width: 30px;">
-                        <button id="btn-increase" class="btn mb-border-black-1 mb-btn" style="padding: 0px 5px;"><i class="fa-solid fa-plus"></i></button>
-                    </p>
+                <div class="card-body d-flex flex-column justify-content-between" style="background-color: #FEE3EC;">
+                    <div>
+                        <h5 class="card-title font-weight-bold">{{ $product['name'] }}</h5>
+                        <p class="card-text">{{ $product['description'] }}</p>
+                        <p class="card-text"><strong>Price:</strong> {{ $product['price'] }}</p>
+                        <p class="card-text"><strong>Stock:</strong> {{ $product['quantity'] }}</p>
+                        <p class="card-text">
+                            <strong>Quantity:</strong> 
+                            <button id="btn-decrease" class="btn mb-border-black-1 mb-btn"style="padding: 0px 5px;"><i class="fa-solid fa-minus"></i></button>
+                            <input id="quantity" type="text" name="quantity" value="0" placeholder="0" style="width: 30px;">
+                            <button id="btn-increase" class="btn mb-border-black-1 mb-btn" style="padding: 0px 5px;"><i class="fa-solid fa-plus"></i></button>
+                        </p>
+                    </div>
                     <div class="w-100 justify-content-center" style="display: flex; align-items: center;">
                         <form action="{{ route('cart-product-store', $product['id']) }}" method="POST">
                             @csrf

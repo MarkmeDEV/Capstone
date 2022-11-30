@@ -43,36 +43,61 @@
                                     <span class="link_name">Profile</span>
                               </a>
                         </li>
+
+                        @if(Auth::user()->role_id == 3)
                         <li class="patient-nav">
                               <a href="{{ route('product-list') }}">
                                     <i class="fa-solid fa-box"></i>
                                     <span class="link_name">Products</span>
                               </a>
                         </li>
+                        @endif
+
+                        @if(Auth::user()->role_id != 3)
                         <li class="patient-nav">
                               <a href="{{ route('inventory-list') }}">
                                     <i class="fa-solid fa-cart-flatbed"></i>
                                     <span class="link_name">Inventory</span>
                               </a>
                         </li>
+                        @endif
+
+                        @if(Auth::user()->role_id == 3)
                         <li class="appointment-nav">
                               <a href="{{ route('cart-show') }}">
                                     <i class="fa-solid fa-cart-shopping"></i>
                                     <span class="link_name">Cart</span>
                               </a>
                         </li>
+                        @endif
+
+                        @if(Auth::user()->role_id == 3)
                         <li class="inventory-nav">
                               <a href="{{ route('order-list') }}">
                                     <i class="fa-solid fa-truck"></i>
                                     <span class="link_name">Orders</span>
                               </a>
                         </li>
+                        @endif
+                        
+                        @if(Auth::user()->role_id != 3)
                         <li class="inventory-nav">
                               <a href="{{ route('staff-order-list') }}">
                                     <i class="fa-solid fa-truck"></i>
                                     <span class="link_name">Orders</span>
                               </a>
                         </li>
+                        @endif
+
+                        @if(Auth::user()->role_id != 3)
+                        <li class="inventory-nav">
+                              <a href="{{ route('user-list') }}">
+                                    <i class="fa-solid fa-users"></i>
+                                    <span class="link_name">User Management</span>
+                              </a>
+                        </li>
+                        @endif
+
                         @if(( Auth::user()->user_type_id == 1) || (Auth::user()->user_type_id == 4) || (Auth::user()->user_type_id == 5) || (Auth::user()->user_type_id == 7))
                               <li class="user-nav">
                                     <a href="">

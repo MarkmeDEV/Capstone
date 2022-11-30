@@ -17,9 +17,6 @@
                             <th>Product</th>
                             <th class="text-center">Unit Price</th>
                             <th class="text-center">Quantity</th>
-                            @if($data['orderStatus'] == 'Received')
-                                <th class="text-center">Feedback</th>
-                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -42,24 +39,6 @@
                                 <td class="text-center">
                                     {{ $product['quantity'] }}
                                 </td>
-                                @if($data['orderStatus'] == 'Received')
-                                    <td class="text-center">
-                                        @if(!$product['is_added_feedback'])
-                                            <button 
-                                                class="btn btn-md mb-btn update-btn rate" 
-                                                type="button"
-                                                data-toggle="modal" 
-                                                data-target="#rating" 
-                                                product-id="{{$product['id']}}"
-                                                user-id="{{Auth::user()->id}}"
-                                            >
-                                                Rate
-                                            </button>
-                                        @else
-                                            Done
-                                        @endif
-                                    </td>
-                                @endif
                             </tr>
                         @empty
 
@@ -68,13 +47,17 @@
                 </table>
             </div>
             <div class="w-100 mt-4 pb-5">
-                @if($data['orderStatus'] == "To Pay")
+                <!-- @if($data['orderStatus'] == "To Pay")
                     <form id="delete-user" action="{{ route('order-destroy', $data['id'])}}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-md mb-btn float-right cancel-order-btn">Cancel Order
                         </button>
                     </form>
                     <button class="btn btn-md mb-btn float-right mr-2" data-toggle="modal" data-target="#exampleModal">Pay</button>
+                @endif -->
+                <a href="{{ asset('images/payment/payment-11.jpg') }}" class="btn btn-md mb-btn float-left mr-2" download><i class="fa-solid fa-download mr-2"></i>Payment Reciept</a>
+                @if($data['orderStatus'] != 'Received')
+                  <button class="btn btn-md mb-btn float-right mr-2" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-pen-to-square"></i> Update Status</button>
                 @endif
                 <span class="float-right mr-4 mt-2 font-weight-bold">Total: <i class="fa-solid fa-peso-sign"></i> {{ $data['totalPrice'] }}</span>
                 <h3 class="mr-4 font-weight-bold text-center"><strong>Status:</strong> {{ $data['orderStatus'] }}</h3>
@@ -84,22 +67,22 @@
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form action="{{ route('order-payment', $data['id']) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('staff-order-update-status', $data['id']) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="modal-header">
-                                <h3 class="modal-title" id="exampleModalLabel">Payment Form</h3>
+                                <h3 class="modal-title" id="exampleModalLabel">Update Status</h3>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p class="text-center font-weight-bold">Send Payment through GCASH</p>
-                                <p>Name: Juan Dela Cruz</p>
-                                <p>GCash Number: 09XXXXXXXXX</p>
-                                <label for="reference-number">Reference Number:</label>
-                                <input id="reference-number" class="form-control" type="text"  name="reference_number" required>
-                                <label for="reference-proof-image" class="mt-3">Upload Screenshot:</label>
-                                <input id="reference-proof-image" class="form-control" type="file"  name="reference_proof_image" required>
+                                <label for="status" class="font-weight-bold">Status</label>
+                                <select id="status" name="status" class="form-control text-dark font-weight-bold">
+                                  <option value="To Pay">To Pay</option>
+                                  <option value="To Ship">To Ship</option>
+                                  <option value="To Receive">To Receive</option>
+                                  <option value="Received">Received</option>
+                                </select>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -109,42 +92,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="modal fade" id="rating" tabindex="-1" role="dialog" aria-labelledby="rating" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <form action="{{ route('order-payment', $data['id']) }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            <div class="modal-header">
-                                <h3 class="modal-title" id="exampleModalLabel">Feedback</h3>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p class="text-center font-weight-bold">STAR</p>
-                                <select name="rating" class="form-control rating-number">
-                                    <option value="1">&#9733;</option>
-                                    <option value="2">&#9733;&#9733;</option>
-                                    <option value="3">&#9733;&#9733;&#9733;</option>
-                                    <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
-                                    <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
-                                </select>
-                                <label for="message">Message: </label>
-                                <textarea class="form-control" name="message" class="message-val" required>
-
-                                </textarea>
-                                <input type="hidden" name="product_id" class="rate_product_id" required/>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn mb-btn rating-submit-btn">Submit</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            
             <!-- <div class="card h-100">
                 <div class="card-body" style="background-color: #FEE3EC;">
                     <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
@@ -169,7 +116,6 @@
     
 @section('after-content')
     <script>
-        let productId = 0;
         $('.payment-submit-btn').click(function(e) {
             // e.preventDefault();
             toastr.success('Payment has been submitted and will refresh the page!');
@@ -177,16 +123,6 @@
 
         $('.cancel-order-btn').click(function(e) {
             toastr.success('Order has been cancelled!');
-        });
-
-        $('.rate').click(function() {
-            productId = $(this).attr('product-id');
-        });
-
-        $('.rating-submit-btn').click(function(e) {
-            e.preventDefault();
-
-            $('.rate_product_id').attr('value',);
         });
     </script>
 @endsection

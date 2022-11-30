@@ -12,7 +12,9 @@ use App\Models\{
     OrderProduct,
     PaymentImage,
     Products,
-    ProductImage
+    ProductImage,
+    User,
+    UserPersonalInformation
 };
 use DateTime;
 use DateTimeZone;
@@ -20,7 +22,7 @@ use DateTimeZone;
 class AdminOrderController extends Controller
 {
     function index() {
-        $orders = Order::where('user_id', '=' , Auth::user()->id)->get();
+        $orders = Order::all();
         $data = [];
         foreach($orders as $order) {
             $orderItems = OrderProduct::where('order_id', '=', $order->id)->get();
@@ -47,6 +49,22 @@ class AdminOrderController extends Controller
         $orderAddress = OrderAddress::where('order_id', '=', $orderItem->id)->get();
         $orderPayment = OrderPayment::where('order_id', '=', $orderItem->id)->get();
         $orderProducts = OrderProduct::where('order_id', '=', $orderItem->id)->get();
+  
+        $orderShippingAddress = $orderAddress[0]->street . ', ' . $orderAddress[0]->barangay . ', ' . $orderAddress[0]->city . ', ' . $orderAddress[0]->province;
+        $zipCode = $orderAddress[0]->zip_code;
+        $shippingAddress = [
+            'address' => $orderShippingAddress,
+            'zipCode' => $zipCode
+        ];
+
+        $user = User::find($orderItem->user_id);
+        $user = UserPersonalInformation::find($user->user_personal_information_id);
+        $fullName = $user->first_name . ' ' . ($user->middle_name ?? '') . ' ' . $user->last_name;
+        $contactNumber = $user->phone_number;
+        $user = [
+            'name' => $fullName,
+            'phoneNumber' => $contactNumber
+        ];
 
         $products = [];
         $totalPrice = 0;
@@ -75,9 +93,11 @@ class AdminOrderController extends Controller
             'products' => $products,
             'totalPrice' => $totalPrice,
             'orderStatus' => $orderItem->order_status,
+            'orderAddress' => $shippingAddress,
+            'user' => $user
         ];
 
-        return view('admin.order.list', ['data' => $data]);
+        return view('admin.order.show', ['data' => $data]);
     }
 
     function store(Request $request, $id) {
@@ -185,5 +205,13 @@ class AdminOrderController extends Controller
         }
 
         return redirect("orders/show/$id");
+    }
+
+    function updateStatus(Request $request, $id) {
+        $order = Order::find($id);
+        $order->order_status = $request->status;
+        $order->save();
+        
+        return redirect()->route('staff-order-show', $id);
     }
 }

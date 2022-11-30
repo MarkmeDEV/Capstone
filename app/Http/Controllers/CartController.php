@@ -13,6 +13,7 @@ use App\Models\{
 
 class CartController extends Controller
 {
+
     function index() {
         $cart = Cart::find(Auth::user()->id);
         $cartProducts = CartProduct::all();
@@ -57,15 +58,16 @@ class CartController extends Controller
 
     public function store(Request $request, $id) {
         $cart = Cart::where('user_id', '=', Auth::user()->id)->get();
-
         $cartProducts = CartProduct::all();
 
         foreach($cartProducts as $product) {
-            if($product->product_id == $id) {
-                $existingCartProduct = cartProduct::find($product->id);
-                $existingCartProduct->quantity += $request->quantity;
-                $existingCartProduct->save();
-                return redirect('products/show/' . $id);
+            if($cart[0]->id == $product->cart_id) {
+                if($product->product_id == $id) {
+                    $existingCartProduct = cartProduct::find($product->id);
+                    $existingCartProduct->quantity += $request->quantity;
+                    $existingCartProduct->save();
+                    return redirect('products/show/' . $id);
+                }
             }
         }
 
@@ -74,7 +76,7 @@ class CartController extends Controller
         $cartProduct->product_id = $id;
         $cartProduct->quantity = $request->quantity;
         $cartProduct->save();
-
+        
         return redirect('products/show/' . $id);
     }
 

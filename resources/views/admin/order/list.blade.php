@@ -33,10 +33,7 @@
                                 <td class="text-center">
                                     <form id="delete-user" action="{{ route('order-destroy', $order['id']) }}" method="POST">
                                         @csrf
-                                        <a class="btn btn-sm mb-btn" href="{{ route('order-show', $order['id']) }}"><i class="fa-solid fa-eye"></i></a>
-                                        <a href="#" class="btn btn-sm mb-btn delete-btn"><i class='bx bxs-trash delete' ></i></a>
-                                        <button type="submit" class="submit">
-                                        </button>
+                                        <a class="btn btn-sm mb-btn" href="{{ route('staff-order-show', $order['id']) }}"><i class="fa-solid fa-eye"></i></a>
                                     </form>
                                 </td>
                             </tr>
