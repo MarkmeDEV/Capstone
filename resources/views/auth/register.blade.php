@@ -197,7 +197,7 @@
                                         <label for="lname" class="col-md-4 col-form-label text-md-end">Birthday</label>
 
                                         <div class="col-md-6">
-                                            <input id="lname" type="date" class="form-control @error('name') is-invalid @enderror" name="lname" required autocomplete="middle-name" autofocus>
+                                            <input id="lname" type="date" class="form-control @error('name') is-invalid @enderror" name="birthdate" required autocomplete="middle-name" autofocus>
 
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">

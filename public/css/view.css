@@ -322,13 +322,14 @@ a .product-card {
 }
 
 .product-card {
-	width: 13rem;
+	width: 15rem;
 	box-shadow: 1px 1px 2px #F2789F;
 	text-decoration: none;
+	min-height: 20rem;
 }
 .product-card:hover {
 	position: relative;
-	width: 13rem !important;
+	width: 15rem !important;
 	box-shadow: 1px 1px 2px #960633;
 	cursor: pointer;
 	text-decoration: none;
@@ -411,5 +412,18 @@ table#cart tbody tr td{
 .swal-button.swal-button--confirm {
 	background-color: #F2789F !important;
 }
+
+.mb-color-primary {
+	background-color: #F2789F !important;
+}
+
+.card-header {
+	background-color: rgba(252, 252, 252, 0.5) !important;
+}
+
+
+.product-list {
+	background-color: rgba(133, 133, 133, 0.1) !important;
+};
 
 

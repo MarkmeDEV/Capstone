@@ -16,78 +16,33 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">
-                                1
-                            </td>
-                            <td class="text-center">
-                                8
-                            </td>
-                            <td class="text-center">
-                                <i class="fa-solid fa-peso-sign"></i> 999
-                            </td>
-                            <td class="text-center">
-                                To Pay
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm mb-btn" href="{{ route('order-show', '2') }}"><i class="fa-solid fa-eye"></i></a>
-                                <button class="btn btn-sm mb-btn delete-btn" href=""><i class="fa-solid fa-ban"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                2
-                            </td>
-                            <td class="text-center">
-                                8
-                            </td>
-                            <td class="text-center">
-                                <i class="fa-solid fa-peso-sign"></i> 999
-                            </td>
-                            <td class="text-center">
-                                To Pay
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm mb-btn" href="{{ route('order-show', '2') }}"><i class="fa-solid fa-eye"></i></a>
-                                <button class="btn btn-sm mb-btn delete-btn"><i class="fa-solid fa-ban"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                3
-                            </td>
-                            <td class="text-center">
-                                8
-                            </td>
-                            <td class="text-center">
-                                <i class="fa-solid fa-peso-sign"></i> 999
-                            </td>
-                            <td class="text-center">
-                                To Pay
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm mb-btn" href="{{ route('order-show', '2') }}"><i class="fa-solid fa-eye"></i></a>
-                                <button class="btn btn-sm mb-btn delete-btn"><i class="fa-solid fa-ban"></i></button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">
-                                4
-                            </td>     
-                            <td class="text-center">
-                                8
-                            </td>
-                            <td class="text-center">
-                                <i class="fa-solid fa-peso-sign"></i> 999
-                            </td>
-                            <td class="text-center">
-                                To Pay
-                            </td>
-                            <td class="text-center">
-                                <a class="btn btn-sm mb-btn" href="{{ route('order-show', '2') }}"><i class="fa-solid fa-eye"></i></a>
-                                <button class="btn btn-sm mb-btn delete-btn"><i class="fa-solid fa-ban"></i></button>
-                            </td>
-                        </tr>
+                        @forelse($data as $order) 
+                            <tr>
+                                <td class="text-center">
+                                    {{ $order['id'] }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $order['quantity'] }}
+                                </td>
+                                <td class="text-center">
+                                    <i class="fa-solid fa-peso-sign"></i> {{ $order['totalPrice'] }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $order['orderStatus'] }}
+                                </td>
+                                <td class="text-center">
+                                    <form id="delete-user" action="{{ route('order-destroy', $order['id']) }}" method="POST">
+                                        @csrf
+                                        <a class="btn btn-sm mb-btn" href="{{ route('order-show', $order['id']) }}"><i class="fa-solid fa-eye"></i></a>
+                                        <a href="#" class="btn btn-sm mb-btn delete-btn"><i class='bx bxs-trash delete' ></i></a>
+                                        <button type="submit" class="submit">
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <h5 class="text-center">No Order List</h5>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -97,6 +52,8 @@
 @endsection
     
 @section('after-content')
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>   
     <script>
         $('.delete-btn').click(function() {
             swal({
@@ -116,6 +73,16 @@
 
         $('.checkout-btn').click(function() {
             toastr.success('Products are moved to orders!');
+        });
+
+        $(document).ready( function () {
+            $('#cart').DataTable();
+        });
+
+        $('.submit').hide();
+
+        $('.delete-btn').click(function() {
+            $('.submit').click();
         });
     </script>
 

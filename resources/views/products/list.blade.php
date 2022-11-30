@@ -17,141 +17,21 @@
         </div>
     </div>
     <div class="row mt-3">
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}" style="text-decoration: none;">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        @foreach($products as $product) 
+            <div class="col-md-3 mt-5">
+                <a href="{{ route('product-show', $product['id']) }}">
+                    <div class="card product-card">
+                        <img src="{{ asset('images/' . ($product['images'][0] ?? 'alt-product.png')) }}" class="card-img-top" alt="Product Image">
+                        <div class="card-body">
+                            <h5 class="card-title font-weight-bold">{{ $product['name'] }}</h5>
+                            <p class="card-text">{{ $product['description'] }}</p>
+                        </div>
                     </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-3 mt-5">
-            <a href="{{ route('product-show', 1) }}">
-                <div class="card product-card">
-                    <img src="{{ asset('img/liptint_1.jpg') }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title font-weight-bold">HD Matte Lip Tint</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        
+                </a>
+            </div>
+        @endforeach
     </div>
-    <div class="row justify-content-center">
+    <!-- <div class="row justify-content-center">
         <div class="col-md-6 mt-5" style="">
             <span class="float-left" style="cursor: pointer;"> << </span> 
             <span class="ml-5" style="cursor: pointer;">1</span> 
@@ -164,7 +44,7 @@
             <span class="ml-5" style="cursor: pointer;">8</span> 
             <span class="float-right" style="cursor: pointer;"> >> </span>
         </div>
-    </div>
+    </div> -->
 </div>
 @endsection
 
