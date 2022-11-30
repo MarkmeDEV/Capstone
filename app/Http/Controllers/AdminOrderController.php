@@ -88,6 +88,8 @@ class AdminOrderController extends Controller
             ];
         }
 
+        $paymentImage = PaymentImage::where('order_payment_id', '=', $orderPayment[0]->id)->get();
+
         $data = [
             'id' => $id,
             'products' => $products,
@@ -97,7 +99,7 @@ class AdminOrderController extends Controller
             'user' => $user
         ];
 
-        return view('admin.order.show', ['data' => $data]);
+        return view('admin.order.show', ['data' => $data, 'payment_link' => $paymentImage[0]->link]);
     }
 
     function store(Request $request, $id) {

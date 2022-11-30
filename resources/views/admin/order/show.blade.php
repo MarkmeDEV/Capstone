@@ -55,7 +55,7 @@
                     </form>
                     <button class="btn btn-md mb-btn float-right mr-2" data-toggle="modal" data-target="#exampleModal">Pay</button>
                 @endif -->
-                <a href="{{ asset('images/payment/payment-11.jpg') }}" class="btn btn-md mb-btn float-left mr-2" download><i class="fa-solid fa-download mr-2"></i>Payment Reciept</a>
+                <a href="{{ asset("images/payment/$payment_link") }}" class="btn btn-md mb-btn float-left mr-2" download><i class="fa-solid fa-download mr-2"></i>Payment Reciept</a>
                 @if($data['orderStatus'] != 'Received')
                   <button class="btn btn-md mb-btn float-right mr-2" data-toggle="modal" data-target="#exampleModal"><i class="fa-solid fa-pen-to-square"></i> Update Status</button>
                 @endif

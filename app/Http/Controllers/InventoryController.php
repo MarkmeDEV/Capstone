@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Products;
 use App\Models\ProductImage;
+use App\Models\feedback;
+use App\Models\UserPersonalInformation;
 
 class InventoryController extends Controller
 {
@@ -57,8 +59,9 @@ class InventoryController extends Controller
     function show($id) {
         $data = Products::find($id);
         $productImages = ProductImage::where('product_id', '=', $id)->get();
-
+        $feedback = feedback::where('product_id', '=', $id)->get();
         $images = [];
+        $feedbacks = [];
 
         foreach($productImages as $item) {
             $images[] = $item->link;
@@ -73,7 +76,18 @@ class InventoryController extends Controller
             'images' => $images
         ];
 
-        return view('inventory.show', ['product' => $product]);
+        foreach($feedback as $rating) {
+
+            $user = UserPersonalInformation::find($rating->person_information_id);
+            
+            $feedbacks[] = [
+                'rating' => $rating->star,
+                'message' => $rating->message,
+                'customer_name' => $user->first_name . ' ' . $user->last_name,
+            ];
+        }
+
+        return view('inventory.show', ['product' => $product, 'feedbacks' => $feedbacks]);
     }
     
     function destroy($id) {

@@ -24,7 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/products', [App\Http\Controllers\ProductsController::class, 'index'])->name('product-list');
 Route::get('/products/show/{id}', [App\Http\Controllers\ProductsController::class, 'show'])->name('product-show');
-Route::get('/products/rating', [App\Http\Controllers\ProductsController::class, 'rate'])->name('product-rate');
+Route::POST('/products/rating', [App\Http\Controllers\ProductsController::class, 'rate'])->name('product-rate');
 
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart-show');
 Route::post('/cart/product/delete/{id}', [App\Http\Controllers\CartController::class, 'destroy'])->name('cart-product-destroy');

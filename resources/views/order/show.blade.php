@@ -113,7 +113,7 @@
             <div class="modal fade" id="rating" tabindex="-1" role="dialog" aria-labelledby="rating" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <form action="{{ route('order-payment', $data['id']) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('product-rate')}}" method="POST" enctype="multipart/form-data" class="rated">
                             @csrf
                             <div class="modal-header">
                                 <h3 class="modal-title" id="exampleModalLabel">Feedback</h3>
@@ -131,10 +131,9 @@
                                     <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
                                 </select>
                                 <label for="message">Message: </label>
-                                <textarea class="form-control" name="message" class="message-val" required>
-
-                                </textarea>
-                                <input type="hidden" name="product_id" class="rate_product_id" required/>
+                                <textarea class="form-control" name="message" class="message-val" required></textarea>
+                                <input type="hidden" name="product_id" id="rate_product_id" value="0" required/>
+                                <input type="hidden" name="order_id" id="order_id" value="{{$data['id']}}" required/>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -169,9 +168,8 @@
     
 @section('after-content')
     <script>
-        let productId = 0;
+        var productId = 0;
         $('.payment-submit-btn').click(function(e) {
-            // e.preventDefault();
             toastr.success('Payment has been submitted and will refresh the page!');
         });
 
@@ -184,9 +182,11 @@
         });
 
         $('.rating-submit-btn').click(function(e) {
+            
             e.preventDefault();
+            $('#rate_product_id').attr('value', productId);
 
-            $('.rate_product_id').attr('value',);
+            $('.rated').submit();            
         });
     </script>
 @endsection

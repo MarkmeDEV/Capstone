@@ -25,7 +25,7 @@
 
       <!-- Sweet Alert -->
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-      <title>SKIN MD</title>
+      <title>Mujer Bella</title>
 </head>
 <body>
      

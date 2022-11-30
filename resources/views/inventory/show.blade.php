@@ -40,6 +40,30 @@
             </div>
         </div>
     </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-12 mt-3">
+            <hr/>
+            <h3>Ratings</h3>
+            <hr/>
+        </div>
+        @forelse($feedbacks as $feedback)
+            <div class="col-12">
+                <div class="card-header" style="background-color: #FEE3EC!important;">
+                    <p class="d-inline">{{$feedback['customer_name']}}</p>
+                    @for($i = 0; $i < $feedback['rating']; $i++)
+                        <span style="font-size: 20px;">&#9733;</span>
+                    @endfor
+                </div>
+                <div class="card-body d-flex flex-column justify-content-between" style="background-color: #f5f5f5;">
+                        <p>{{$feedback['message']}}</p>     
+                </div>  
+            </div>
+        @empty
+          <div class="col-12">
+            <h3>No ratings yet!</h3>  
+          </div>
+        @endforelse
+    </div>
 </div>
 @endsection
 

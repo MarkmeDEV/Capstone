@@ -37,7 +37,7 @@
                         </p>
                     </div>
                     <div class="w-100 justify-content-center" style="display: flex; align-items: center;">
-                        <form action="{{ route('cart-product-store', $product['id']) }}" method="POST">
+                        <form action="{{ route('cart-product-store', $product['id']) }}" method="POST" id="add_to_cart">
                             @csrf
                             <input type="hidden" name="quantity" value="0" class="quantity">
                             <button class="btn btn-md mb-btn cart-btn" type="submit">ADD TO CART</button>
@@ -46,6 +46,31 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-12 mt-3">
+            <hr/>
+            <h3>Ratings</h3>
+            <hr/>
+        </div>
+        @forelse($feedbacks as $feedback)
+            <div class="col-12">
+                <div class="card-header" style="background-color: #FEE3EC!important;">
+                    <p class="d-inline">{{$feedback['customer_name']}}</p>
+                    @for($i = 0; $i < $feedback['rating']; $i++)
+                        <span style="font-size: 20px;">&#9733;</span>
+                    @endfor
+                </div>
+                <div class="card-body d-flex flex-column justify-content-between" style="background-color: #f5f5f5;">
+                        <p>{{$feedback['message']}}</p>     
+                </div>  
+            </div>
+        @empty
+            <div class="col-12">
+                <h3>No ratings yet!</h3>  
+            </div>
+            
+        @endforelse
     </div>
 </div>
 @endsection
@@ -77,9 +102,12 @@
             }   
         });
 
-        $('.cart-btn').click(function (){
+        $('.cart-btn').click(function (e){
+            e.preventDefault();
+
             if(Number($('#quantity').val()) > 0) {
                 toastr.success('Product added to cart!');
+                $('#add_to_cart').submit();
             } else {
                 toastr.error('Add Quantity!');
             }
