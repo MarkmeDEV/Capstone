@@ -10,11 +10,13 @@ use App\Models\Role;
 class ProfileController extends Controller
 {
     function index() {
+      // dd(auth()->user());
       $personalInformation = UserPersonalInformation::find(auth()->user()->user_personal_information_id);
       $data = [
         'userId' => auth()->user()->id,
         'userInformation' => $personalInformation
       ];
+      // dd($personalInformation);
       return view('profile.show', ['data' => $data]);
     }
 

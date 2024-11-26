@@ -18,9 +18,15 @@ class UserController extends Controller
         $users = User::all();
         $userList = [];
 
+        // dd($users);
+
         foreach ($users as $user) {
             $personalInformation = UserPersonalInformation::find($user->user_personal_information_id);
             $role = Role::find($user->role_id);
+
+            if (!$personalInformation || !$role) {
+                continue; // Skip this user if personal information or role is missing
+            }
 
             if($role->id == 1 || $role->id == 2) {
                 $userList[] = [
@@ -31,6 +37,8 @@ class UserController extends Controller
                     'phone_number' => $personalInformation->phone_number
                 ];
              }
+
+            // dd($role->id);
         }
         
         return view('users.list', ['users' => $userList]);

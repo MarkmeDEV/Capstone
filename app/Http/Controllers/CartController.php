@@ -15,46 +15,50 @@ class CartController extends Controller
 {
 
     function index() {
-        $cart = Cart::find(Auth::user()->id);
-        $cartProducts = CartProduct::all();
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+    
+        // Handle the case where the cart is not found
+        if (!$cart) {
+            return view('cart.show', ['products' => null]);
+        }
+    
+        $cartProducts = CartProduct::where('cart_id', $cart->id)->get();
         $products = Products::all();
         $productImages = ProductImage::all();
-
+    
         $data = [];
         $data['id'] = $cart->id;
         $data['data'] = [];
         $totalPrice = 0;
-
-        foreach($cartProducts as $key => $item) {
-            if($item['cart_id'] == $cart['id']) {
-                foreach($products as $product => $value) {
-                    if($value['id'] == $item['product_id']) {
-                        $images = [];
-
-                        foreach($productImages as $image) {
-                            if($image['product_id'] == $value['id']) {
-                                $images[] = $image['link'];
-                            }
+    
+        foreach ($cartProducts as $item) {
+            foreach ($products as $product) {
+                if ($product->id == $item->product_id) {
+                    $images = [];
+                    foreach ($productImages as $image) {
+                        if ($image->product_id == $product->id) {
+                            $images[] = $image->link;
                         }
-                        
-                        $data['data'][] = [
-                            'id' => $value['id'],
-                            'name' => $value['name'],
-                            'description' => $value['description'],
-                            'price' => $value['price'],
-                            'quantity' => $item['quantity'],
-                            'images' => $images
-                        ];
-                        $totalPrice += ($value['price'] * $item['quantity']);
                     }
+    
+                    $data['data'][] = [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'description' => $product->description,
+                        'price' => $product->price,
+                        'quantity' => $item->quantity,
+                        'images' => $images,
+                    ];
+                    $totalPrice += ($product->price * $item->quantity);
                 }
             }
         }
-
+    
         $data['totalPrice'] = $totalPrice;
-
+    
         return view('cart.show', ['products' => $data]);
     }
+    
 
     public function store(Request $request, $id) {
         $cart = Cart::where('user_id', '=', Auth::user()->id)->get();
