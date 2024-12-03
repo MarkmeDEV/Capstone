@@ -15,7 +15,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($products['data'] as $product)
+                        @if (!empty($products['data']) && is_array($products['data']))
+                            @foreach ($products['data'] as $product)
                             <tr>
                                 <td>
                                     <div class="row">
@@ -45,21 +46,27 @@
                                     </form>
                                 </td>
                             </tr>
-                        @empty
+                        @endforeach
+                        @else
                             <tr>
                                 <td colspan="4" class="text-center"><h3>No Products Yet</h3></td>
-                            <tr>
-                        @endforelse
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>
 
-            @if(count($products['data']) > 0)
+            @if (!empty($products['data']) && is_array($products['data']))
                 <div class="w-100 mt-4 pb-5">
                     <button class="btn btn-md mb-btn float-right checkout-btn" data-toggle="modal" data-target="#exampleModal">Checkout</button>
-                    <span class="float-right mr-4 mt-2 font-weight-bold">Total: <i class="fa-solid fa-peso-sign"></i>{{ $products['totalPrice'] }}</span>
+                    <span class="float-right mr-4 mt-2 font-weight-bold">
+                        Total: <i class="fa-solid fa-peso-sign"></i>{{ $products['totalPrice'] ?? 0 }}
+                    </span>
                 </div>
             @else
+                <div class="w-100 mt-4 pb-5">
+                    <h3 class="text-center">No products available.</h3>
+                </div>
             @endif
             
             <!-- Modal -->
@@ -73,7 +80,8 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                    <form action="{{ route('order-store', $products['id']) }}" method="">
+                        <form action="{{ route('order-store', $products['id'] ?? '') }}" method="POST">
+
                         @csrf
                             <div class="mb-3">
                                 <label for="street">Street:</label>

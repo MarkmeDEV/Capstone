@@ -85,22 +85,27 @@ class CartController extends Controller
     }
 
     public function destroy($id) {
-        $cart = Cart::find(Auth::user()->id);
-        $cartProducts = CartProduct::all();
-        $products = Products::all();
-
-        foreach($cartProducts as $key => $item) {
-            if($item['cart_id'] == $cart['id']) {
-                foreach($products as $product => $value) {
-                    if($value['id'] == $id) {
-                        $cartItem = CartProduct::find($item['id']);
-                        $cartItem->delete();
-                        return redirect('cart');
-                    }
-                }
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+    
+        if (!$cart) {
+            return redirect('cart')->with('error', 'Cart not found.');
+        }
+    
+        $cartProducts = CartProduct::where('cart_id', $cart->id)->get();
+        $product = Products::find($id);
+    
+        if (!$product) {
+            return redirect('cart')->with('error', 'Product not found.');
+        }
+    
+        foreach ($cartProducts as $item) {
+            if ($item->product_id == $id) {
+                $item->delete();
+                return redirect('cart')->with('success', 'Product removed from cart.');
             }
         }
-
-        return redirect('cart');
+    
+        return redirect('cart')->with('error', 'Product not found in cart.');
     }
+    
 }
