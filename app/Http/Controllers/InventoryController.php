@@ -27,6 +27,7 @@ class InventoryController extends Controller
             'description' => 'required',
             'quantity' => 'required',
             'unitPrice' => 'required',
+            'tag' => 'nullable|string', 
         ]);
 
         $products = new Products();
@@ -34,6 +35,7 @@ class InventoryController extends Controller
         $products->description = $request->description;
         $products->price = $request->unitPrice;
         $products->quantity = $request->quantity;
+        $products->tag = $request->input('tag');
         $products->save();
 
         if($request->hasfile('filename'))
@@ -71,6 +73,7 @@ class InventoryController extends Controller
             'id' => $data->id,
             'name' => $data->name,
             'description' => $data->description,
+            'tag' => $data->tag,
             'quantity' => $data->quantity,
             'price' => $data->price,
             'images' => $images

@@ -5,16 +5,70 @@
     <div class="row justify-content-end mt-2">
         <div class="col-md-3">
             <div class="w-100">
-                <form action="#" method="POST">
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend cursor-pointer">
-                        <div class="input-group-text search-bg"><i class="fa-solid fa-magnifying-glass search-btn"></i></div>
+                <form action="{{ route('products.filter') }}" method="GET">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend cursor-pointer">
+                            <button type="submit" class="input-group-text search-bg border-0">
+                                <i class="fa-solid fa-magnifying-glass search-btn"></i>
+                            </button>
                         </div>
-                        <input class="form-control" type="text" name="search-item" placeholder="Search">
+                        <input 
+                            class="form-control" 
+                            type="text" 
+                            name="search-item" 
+                            placeholder="Search" 
+                            value="{{ request('search-item') }}">
                     </div>
                 </form>
             </div>
         </div>
+    </div>
+    <div class="row mt-3">
+        <!-- Tag Buttons -->
+        <div class="col-md-12 mb-4">
+    <div class="d-flex flex-wrap">
+        <!-- Button for "All" products -->
+        <form action="{{ route('products.filter') }}" method="GET" class="mr-2">
+            <input type="hidden" name="tag" value="all">
+            <button class="btn btn-outline-secondary {{ request('tag') == 'all' || !request('tag') ? 'active' : '' }}">
+                All Products
+            </button>
+        </form>
+
+        <!-- Button for "Cleaning" products -->
+        <form action="{{ route('products.filter') }}" method="GET" class="mr-2">
+            <input type="hidden" name="tag" value="Cleaning">
+            <button class="btn btn-outline-primary {{ request('tag') == 'Cleaning' ? 'active' : '' }}">
+                Cleaning
+            </button>
+        </form>
+
+        <!-- Button for "Beauty" products -->
+        <form action="{{ route('products.filter') }}" method="GET" class="mr-2">
+            <input type="hidden" name="tag" value="Beauty">
+            <button class="btn btn-outline-primary {{ request('tag') == 'Beauty' ? 'active' : '' }}">
+                Beauty
+            </button>
+        </form>
+
+        <!-- Button for "Personal Care" products -->
+        <form action="{{ route('products.filter') }}" method="GET" class="mr-2">
+            <input type="hidden" name="tag" value="Personal Care">
+            <button class="btn btn-outline-primary {{ request('tag') == 'Personal Care' ? 'active' : '' }}">
+                Personal Care
+            </button>
+        </form>
+
+        <!-- Button for "Others" products -->
+        <form action="{{ route('products.filter') }}" method="GET" class="mr-2">
+            <input type="hidden" name="tag" value="Others">
+            <button class="btn btn-outline-primary {{ request('tag') == 'Others' ? 'active' : '' }}">
+                Others
+            </button>
+        </form>
+    </div>
+</div>
+
     </div>
     <div class="row mt-3">
         @foreach($products as $product) 
@@ -31,23 +85,5 @@
             </div>
         @endforeach
     </div>
-    <!-- <div class="row justify-content-center">
-        <div class="col-md-6 mt-5" style="">
-            <span class="float-left" style="cursor: pointer;"> << </span> 
-            <span class="ml-5" style="cursor: pointer;">1</span> 
-            <span class="ml-5" style="cursor: pointer;">2</span> 
-            <span class="ml-5" style="cursor: pointer;">3</span> 
-            <span class="ml-5" style="cursor: pointer;">4</span> 
-            <span class="ml-5" style="cursor: pointer;">5</span> 
-            <span class="ml-5" style="cursor: pointer;">6</span> 
-            <span class="ml-5" style="cursor: pointer;">7</span> 
-            <span class="ml-5" style="cursor: pointer;">8</span> 
-            <span class="float-right" style="cursor: pointer;"> >> </span>
-        </div>
-    </div> -->
 </div>
-@endsection
-
-@section('after-content')
-
 @endsection

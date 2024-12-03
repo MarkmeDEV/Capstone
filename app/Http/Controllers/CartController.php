@@ -59,30 +59,43 @@ class CartController extends Controller
         return view('cart.show', ['products' => $data]);
     }
     
-
-    public function store(Request $request, $id) {
-        $cart = Cart::where('user_id', '=', Auth::user()->id)->get();
-        $cartProducts = CartProduct::all();
-
-        foreach($cartProducts as $product) {
-            if($cart[0]->id == $product->cart_id) {
-                if($product->product_id == $id) {
-                    $existingCartProduct = cartProduct::find($product->id);
-                    $existingCartProduct->quantity += $request->quantity;
-                    $existingCartProduct->save();
-                    return redirect('products/show/' . $id);
-                }
+    public function store(Request $request, $id)
+    {
+        // Fetch the cart for the authenticated user
+        $cart = Cart::where('user_id', Auth::id())->first();
+    
+        // If no cart exists, create one
+        if (!$cart) {
+            $cart = new Cart();
+            $cart->user_id = Auth::id();
+            $cart->save();
+        }
+    
+        // Fetch all cart products for this cart
+        $cartProducts = CartProduct::where('cart_id', $cart->id)->get();
+    
+        // Check if the product already exists in the cart
+        foreach ($cartProducts as $product) {
+            if ($product->product_id == $id) {
+                // Update quantity if product exists
+                $product->quantity += $request->quantity;
+                $product->save();
+                return redirect('cart')
+                    ->with('success', 'Product quantity updated in cart.');
             }
         }
-
+    
+        // Add a new product to the cart if it doesn't already exist
         $cartProduct = new CartProduct();
-        $cartProduct->cart_id = $cart[0]->id;
+        $cartProduct->cart_id = $cart->id;
         $cartProduct->product_id = $id;
         $cartProduct->quantity = $request->quantity;
         $cartProduct->save();
-        
-        return redirect('products/show/' . $id);
+    
+        return redirect('cart')
+            ->with('success', 'Product added to cart.');
     }
+    
 
     public function destroy($id) {
         $cart = Cart::where('user_id', Auth::user()->id)->first();

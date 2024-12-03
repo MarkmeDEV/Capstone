@@ -33,7 +33,7 @@ Route::post('/cart/product/store/{id}', [App\Http\Controllers\CartController::cl
 
 Route::get('/orders', [App\Http\Controllers\OrderController::class, 'index'])->name('order-list');
 Route::get('/orders/show/{id}', [App\Http\Controllers\OrderController::class, 'show'])->name('order-show');
-Route::get('/orders/store/{id}', [App\Http\Controllers\OrderController::class, 'store'])->name('order-store');
+Route::POST('/orders/store/{id}', [App\Http\Controllers\OrderController::class, 'store'])->name('order-store');
 Route::POST('/orders/destroy/{id}', [App\Http\Controllers\OrderController::class, 'destroy'])->name('order-destroy');
 Route::POST('/orders/payment/{id}', [App\Http\Controllers\OrderController::class, 'payment'])->name('order-payment');
 
@@ -57,6 +57,10 @@ Route::POST('/inventory/product/store', [App\Http\Controllers\InventoryControlle
 Route::GET('/inventory/product/show/{id}', [App\Http\Controllers\InventoryController::class, 'show'])->name('inventory-show');
 Route::POST('/inventory/product/destroy/{id}', [App\Http\Controllers\InventoryController::class, 'destroy'])->name('inventory-destroy');
 
+use App\Http\Controllers\HomeController;
+
+Route::get('/products/filter', [HomeController::class, 'index'])->name('products.filter');
+// Route::get('/products', [App\Http\Controllers\ProductsController::class, 'index'])->name('products.index');
 
 
 

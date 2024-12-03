@@ -19,6 +19,16 @@
                   <input type="text" id="description" name="description" class="form-control" required>
                 </div>
                 <div class="mb-3">
+                  <label for="tag">Tag:</label>
+                  <select id="tag" name="tag" class="form-control">
+                      <option value="" disabled selected>Select a Tag</option>
+                      <option value="Cleaning">Cleaning Products</option>
+                      <option value="Beauty">Beauty Products</option>
+                      <option value="Personal Care">Personal Care Products</option>
+                      <option value="Others">Others</option>
+                  </select>
+              </div>
+                <div class="mb-3">
                   <label for="quantity">Quantity:</label>
                   <input type="number" id="quantity" name="quantity" class="form-control" required>
                 </div>

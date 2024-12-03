@@ -13,6 +13,7 @@
                         <tr>
                             <th class="text-center">Name</th>
                             <th class="text-center">Description</th>
+                            <th class="text-center">Tag</th>
                             <th class="text-center">Quantity</th>
                             <th class="text-center">Unit Price</th>
                             <th class="text-center">Action</th>
@@ -26,6 +27,9 @@
                                 </td>
                                 <td class="text-center">
                                   {{ $product->description }}
+                                </td>
+                                <td class="text-center">
+                                  {{ $product->tag }}
                                 </td>
                                 <td class="text-center">
                                   {{ $product->quantity }}

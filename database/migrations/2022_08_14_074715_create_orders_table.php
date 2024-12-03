@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('product_name');
             $table->string('order_status');
             $table->dateTime('ordered');
             $table->dateTime('received')->nullable();

@@ -9,6 +9,7 @@
                     <thead>
                         <tr>
                             <th class="text-center">ID</th>
+                            <th class="text-center">Products</th> <!-- Add Products column -->
                             <th class="text-center">Quantity</th>
                             <th class="text-center">Total Price</th>
                             <th class="text-center">Payment Status</th>
@@ -22,14 +23,29 @@
                                     {{ $order['id'] }}
                                 </td>
                                 <td class="text-center">
+                                    <!-- Display product names -->
+                                        <div>{{ $order['name'] }}</div>
+                                </td>
+                                <td class="text-center">
                                     {{ $order['quantity'] }}
                                 </td>
                                 <td class="text-center">
                                     <i class="fa-solid fa-peso-sign"></i> {{ $order['totalPrice'] }}
                                 </td>
                                 <td class="text-center">
-                                    {{ $order['orderStatus'] }}
+                                    @if ($order['orderStatus'] == 'To Pay')
+                                        <span class="badge badge-warning">To Pay</span>
+                                    @elseif ($order['orderStatus'] == 'To Ship')
+                                        <span class="badge badge-primary">To Ship</span>
+                                    @elseif ($order['orderStatus'] == 'To Receive')
+                                        <span class="badge badge-info">To Receive</span>
+                                    @elseif ($order['orderStatus'] == 'Received')
+                                        <span class="badge badge-success">Received</span>
+                                    @else
+                                        <span class="badge badge-secondary">{{ $order['orderStatus'] }}</span>
+                                    @endif
                                 </td>
+                                
                                 <td class="text-center">
                                     <form id="delete-user" action="{{ route('order-destroy', $order['id']) }}" method="POST">
                                         @csrf
