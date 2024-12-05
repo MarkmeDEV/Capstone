@@ -21,28 +21,41 @@ use DateTimeZone;
 
 class OrderController extends Controller
 {
-    function index() {
-        $orders = Order::where('user_id', '=' , Auth::user()->id)->get();
-        $data = [];
-        foreach($orders as $order) {
-            $orderItems = OrderProduct::where('order_id', '=', $order->id)->get();
-            $quantity = 0;
-            $totalPrice = 0;
-            foreach($orderItems as $orderItem) {
-                $quantity += $orderItem->quantity;
-                $totalPrice += ($orderItem->quantity * $orderItem->price);
-            }
-            $data[] = [
-                'id' => $order->id,
-                'quantity' => $quantity,
-                'totalPrice' => $totalPrice,
-                'orderStatus' => $order->order_status
-            ];
+    function index()
+{
+    $orders = Order::where('user_id', '=', Auth::user()->id)->get();
+
+    // dd($orders); // Dump the orders for debugging
+
+    $data = [];
+    foreach ($orders as $order) {
+        $orderItems = $order->orderProducts; // Access the related orderProducts
+        $quantity = 0;
+        $totalPrice = 0;
+
+        foreach ($orderItems as $orderItem) {
+            $quantity += $orderItem->quantity;
+            $totalPrice += ($orderItem->quantity * $orderItem->price);
         }
-        
-        return view('order.list', ['data' => $data]);     
+
+        $data[] = [
+            'id' => $order->id,
+            'name' => $order->product_name,
+            'quantity' => $quantity,
+            'totalPrice' => $totalPrice,
+            'orderStatus' => $order->order_status,
+            'products' => $orderItems->map(function($item) {
+                return [
+                    'name' => $item->product->name,
+                    'quantity' => $item->quantity,
+                ];
+            }),
+        ];
     }
 
+    return view('order.list', ['data' => $data]);
+}
+    
     function show($id) {
         $orderItem = Order::find($id);
 
@@ -111,16 +124,24 @@ class OrderController extends Controller
         ]);
     
         $cartProducts = CartProduct::where('cart_id', '=', $id)->get();
-        
+    
         $dt = new DateTime("now", new DateTimeZone('Asia/Manila'));
-
+    
         $newOrder = new Order();
         $newOrder->user_id = Auth::user()->id;
         $newOrder->order_status = 'To Pay';
         $newOrder->ordered = $dt->format('Y-m-d H:i:s');
         $newOrder->received = null;
+    
+        // Capture the product names and store them in a comma-separated string
+        $productNames = $cartProducts->map(function($cartProduct) {
+            $product = Products::find($cartProduct->product_id);
+            return $product->name; // Assuming the 'name' field exists in the 'products' table
+        })->implode(', ');
+    
+        $newOrder->product_name = $productNames; // Save the product names as a string
         $newOrder->save();
-
+    
         $orderAddress = new OrderAddress();
         $orderAddress->order_id = $newOrder->id;
         $orderAddress->street = $request->street;
@@ -129,32 +150,32 @@ class OrderController extends Controller
         $orderAddress->province = $request->province;
         $orderAddress->zip_code = $request->zip_code;
         $orderAddress->save();
-
+    
         $orderPayment = new OrderPayment();
         $orderPayment->order_id = $newOrder->id;
         $orderPayment->payment_status = 'To Pay';
         $orderPayment->save();
-
+    
         $paymentImage = new PaymentImage();
         $paymentImage->order_payment_id = $orderPayment->id;
         $paymentImage->link = null;
         $paymentImage->save();
-
+    
         foreach($cartProducts as $cartProduct) {
-
-            $product = Products::where('id', '=', $cartProduct->product_id)->get();
-
+            $product = Products::find($cartProduct->product_id);
+    
             $orderProduct = new OrderProduct();
             $orderProduct->order_id = $newOrder->id;
-            $orderProduct->product_id = $product[0]->id;
+            $orderProduct->product_id = $product->id;
             $orderProduct->quantity = $cartProduct->quantity;
-            $orderProduct->price = $product[0]->price;
+            $orderProduct->price = $product->price;
             $orderProduct->save();
-
+    
             $cartItem = CartProduct::find($cartProduct->id);
             $cartItem->delete();
         }
-
+    
+        // Prepare data to send to the view
         $orders = Order::where('user_id', '=' , Auth::user()->id)->get();
         $data = [];
         foreach($orders as $order) {
@@ -169,10 +190,11 @@ class OrderController extends Controller
                 'id' => $order->id,
                 'quantity' => $quantity,
                 'totalPrice' => $totalPrice,
-                'orderStatus' => $order->order_status
+                'orderStatus' => $order->order_status,
+                'productName' => $order->product_name, // Add the product_name to the data
             ];
         }
-
+    
         return view('order.list', ['data' => $data]);
     }
 

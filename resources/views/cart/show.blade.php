@@ -81,7 +81,6 @@
                     </div>
                     <div class="modal-body">
                         <form action="{{ route('order-store', $products['id'] ?? '') }}" method="POST">
-
                         @csrf
                             <div class="mb-3">
                                 <label for="street">Street:</label>
@@ -106,10 +105,10 @@
                             <button type="submit" class="checkout-order"></button>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn mb-btn checkout">Submit</button>
-                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn mb-btn checkout">Submit</button>
+                        </div>
                     </div>
                 </div>
             </div>
