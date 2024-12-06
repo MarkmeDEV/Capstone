@@ -3,7 +3,7 @@
 3. sorting / filter products - DONE
 4. Dashboard chart report - DONE
 5. customer information orders - DONE
-6. status of delivery 
+6. status of delivery - DONE
 7. voucher
 
 
