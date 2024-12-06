@@ -1,0 +1,15 @@
+1. Payment notification also in customer
+2. forgot password
+3. sorting / filter products - DONE
+4. Dashboard chart report - DONE
+5. customer information orders - DONE
+6. status of delivery 
+7. voucher
+
+
+IDEA => 
+ - Payment notifcation -> Create notification table for this it will add new notification once the status payment is updated to to ship
+ - FOrgot password -> email system
+ - Dashboard Chart -> futher discussion
+ - Status of delivery -> just add ui -> optional
+ - Voucher - optional

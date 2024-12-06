@@ -22,9 +22,12 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
 
-
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <!-- Sweet Alert -->
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
       <title>Mujer Bella</title>
 </head>
 <body>
@@ -36,90 +39,98 @@
                   <i class="fa-solid fa-m"></i>
                   <span class="logo_name">Mujer Bella</span>
             </div>
-                  <ul class="nav-links side-links">
-                        <li class="dashboard-nav">
-                              <a href="{{ route('profile') }}">
-                                    <i class="fa-solid fa-user"></i>
-                                    <span class="link_name">Profile</span>
-                              </a>
-                        </li>
-
-                        @if(Auth::user()->role_id == 3)
-                        <li class="patient-nav">
-                              <a href="{{ route('product-list') }}">
-                                    <i class="fa-solid fa-box"></i>
-                                    <span class="link_name">Products</span>
-                              </a>
-                        </li>
-                        @endif
-
-                        @if(Auth::user()->role_id != 3)
-                        <li class="patient-nav">
-                              <a href="{{ route('inventory-list') }}">
-                                    <i class="fa-solid fa-cart-flatbed"></i>
-                                    <span class="link_name">Inventory</span>
-                              </a>
-                        </li>
-                        @endif
-
-                        @if(Auth::user()->role_id == 3)
-                        <li class="appointment-nav">
-                              <a href="{{ route('cart-show') }}">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                    <span class="link_name">Cart</span>
-                              </a>
-                        </li>
-                        @endif
-
-                        @if(Auth::user()->role_id == 3)
-                        <li class="inventory-nav">
-                              <a href="{{ route('order-list') }}">
-                                    <i class="fa-solid fa-truck"></i>
-                                    <span class="link_name">Orders</span>
-                              </a>
-                        </li>
-                        @endif
-                        
-                        @if(Auth::user()->role_id != 3)
-                        <li class="inventory-nav">
-                              <a href="{{ route('staff-order-list') }}">
-                                    <i class="fa-solid fa-truck"></i>
-                                    <span class="link_name">Orders</span>
-                              </a>
-                        </li>
-                        @endif
-
-                        @if(Auth::user()->role_id != 3)
-                        <li class="inventory-nav">
-                              <a href="{{ route('user-list') }}">
-                                    <i class="fa-solid fa-users"></i>
-                                    <span class="link_name">User Management</span>
-                              </a>
-                        </li>
-                        @endif
-
-                        @if(( Auth::user()->user_type_id == 1) || (Auth::user()->user_type_id == 4) || (Auth::user()->user_type_id == 5) || (Auth::user()->user_type_id == 7))
-                              <li class="user-nav">
-                                    <a href="">
-                                          <i class='bx bxs-user-account'></i>
-                                          <span class="link_name">User Management</span>
-                                    </a>
-                              </li>
-                        @endif
-
-                        <li >
-                                <a href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                         <i class='bx bx-log-out' ></i>
-                                    <span class="link_name ">Log out</span>
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                        </li>
-                  </ul>
+            <ul class="nav-links side-links">
+                  <li class="dashboard-nav">
+                      <a href="{{ route('profile') }}">
+                          <i class="fa-solid fa-user"></i>
+                          <span class="link_name">Profile</span>
+                      </a>
+                  </li>
+              
+                  @if(Auth::check() && Auth::user()->role_id == 3)
+                  <li class="patient-nav">
+                      <a href="{{ route('product-list') }}">
+                          <i class="fa-solid fa-box"></i>
+                          <span class="link_name">Products</span>
+                      </a>
+                  </li>
+                  @endif
+              
+                  @if(Auth::check() && Auth::user()->role_id != 3)
+                  <li class="patient-nav">
+                      <a href="{{ route('admin-dashboard') }}">
+                            <i class="fa-solid fa-gauge"></i>
+                          <span class="link_name">Dashboard</span>
+                      </a>
+                  </li>
+                  @endif
+                  @if(Auth::check() && Auth::user()->role_id != 3)
+                  <li class="patient-nav">
+                      <a href="{{ route('inventory-list') }}">
+                          <i class="fa-solid fa-cart-flatbed"></i>
+                          <span class="link_name">Inventory</span>
+                      </a>
+                  </li>
+                  @endif
+              
+                  @if(Auth::check() && Auth::user()->role_id == 3)
+                  <li class="appointment-nav">
+                      <a href="{{ route('cart-show') }}">
+                          <i class="fa-solid fa-cart-shopping"></i>
+                          <span class="link_name">Cart</span>
+                      </a>
+                  </li>
+                  @endif
+              
+                  @if(Auth::check() && Auth::user()->role_id == 3)
+                  <li class="inventory-nav">
+                      <a href="{{ route('order-list') }}">
+                          <i class="fa-solid fa-truck"></i>
+                          <span class="link_name">Orders</span>
+                      </a>
+                  </li>
+                  @endif
+              
+                  @if(Auth::check() && Auth::user()->role_id != 3)
+                  <li class="inventory-nav">
+                      <a href="{{ route('staff-order-list') }}">
+                          <i class="fa-solid fa-truck"></i>
+                          <span class="link_name">Orders</span>
+                      </a>
+                  </li>
+                  @endif
+              
+                  @if(Auth::check() && Auth::user()->role_id != 3)
+                  <li class="inventory-nav">
+                      <a href="{{ route('user-list') }}">
+                          <i class="fa-solid fa-users"></i>
+                          <span class="link_name">User Management</span>
+                      </a>
+                  </li>
+                  @endif
+              
+                  @if(Auth::check() && (Auth::user()->user_type_id == 1 || Auth::user()->user_type_id == 4 || Auth::user()->user_type_id == 5 || Auth::user()->user_type_id == 7))
+                  <li class="user-nav">
+                      <a href="">
+                          <i class='bx bxs-user-account'></i>
+                          <span class="link_name">User Management</span>
+                      </a>
+                  </li>
+                  @endif
+              
+                  <li>
+                      <a href="{{ route('logout') }}"
+                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                          <i class='bx bx-log-out'></i>
+                          <span class="link_name">Log out</span>
+                      </a>
+              
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                          @csrf
+                      </form>
+                  </li>
+              </ul>
+              
       </div>
 
       <!-- HOME CONTENT -->
@@ -137,7 +148,10 @@
             </div>
 
       </section>
-
+    <!-- Bootstrap 5 JS and Chart.js Script -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
       <script src="{{asset('js/dashboard.js')}}"></script>
       </script>
       <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"> -->

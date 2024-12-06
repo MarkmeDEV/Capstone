@@ -24,16 +24,24 @@ class AdminOrderController extends Controller
     function index() {
         $orders = Order::all();
         $data = [];
-        foreach($orders as $order) {
+        
+        foreach ($orders as $order) {
             $orderItems = OrderProduct::where('order_id', '=', $order->id)->get();
             $quantity = 0;
             $totalPrice = 0;
-            foreach($orderItems as $orderItem) {
+            
+            foreach ($orderItems as $orderItem) {
                 $quantity += $orderItem->quantity;
                 $totalPrice += ($orderItem->quantity * $orderItem->price);
             }
+    
+            // Fetch the user who placed the order
+            $user = User::find($order->user_id);
+    
             $data[] = [
                 'id' => $order->id,
+                'userName' => $user ? $user->name : 'Unknown User', // Use 'Unknown User' if no user is found
+                'productName' => $order->product_name,
                 'quantity' => $quantity,
                 'totalPrice' => $totalPrice,
                 'orderStatus' => $order->order_status
