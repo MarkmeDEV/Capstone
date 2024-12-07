@@ -9,7 +9,7 @@
                     <thead>
                         <tr>
                             <th class="text-center">ID</th>
-                            <th class="text-center">Products</th> <!-- Add Products column -->
+                            <th class="text-center">Products</th>
                             <th class="text-center">Quantity</th>
                             <th class="text-center">Total Price</th>
                             <th class="text-center">Payment Status</th>
@@ -17,14 +17,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($data as $order) 
+                        @forelse($data as $order)
                             <tr>
                                 <td class="text-center">
                                     {{ $order['id'] }}
                                 </td>
                                 <td class="text-center">
-                                    <!-- Display product names -->
-                                        <div>{{ $order['name'] }}</div>
+                                    <div>{{ $order['name'] }}</div>
                                 </td>
                                 <td class="text-center">
                                     {{ $order['quantity'] }}
@@ -50,12 +49,14 @@
                                     <form id="delete-user" action="{{ route('order-destroy', $order['id']) }}" method="POST">
                                         @csrf
                                         <a class="btn btn-sm mb-btn" href="{{ route('order-show', $order['id']) }}"><i class="fa-solid fa-eye"></i></a>
-                                        <a href="#" class="btn btn-sm mb-btn delete-btn"><i class='bx bxs-trash delete' ></i></a>
-                                        <button type="submit" class="submit">
-                                        </button>
+                                        <a href="#" class="btn btn-sm mb-btn delete-btn"><i class='bx bxs-trash delete'></i></a>
+                                        <button type="submit" class="submit"></button>
                                     </form>
                                 </td>
                             </tr>
+
+                            <!-- Stepper UI Below the Table -->
+
                         @empty
                             <h5 class="text-center">No Order List</h5>
                         @endforelse
@@ -66,7 +67,7 @@
     </div>
 </div>
 @endsection
-    
+
 @section('after-content')
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>   
@@ -101,7 +102,4 @@
             $('.submit').click();
         });
     </script>
-
-    <style>
-    </style>
 @endsection

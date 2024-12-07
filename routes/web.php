@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\AdminDashboard;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,6 +56,8 @@ Route::get('/inventory/product/create', [App\Http\Controllers\InventoryControlle
 Route::POST('/inventory/product/store', [App\Http\Controllers\InventoryController::class, 'store'])->name('inventory-store');
 Route::GET('/inventory/product/show/{id}', [App\Http\Controllers\InventoryController::class, 'show'])->name('inventory-show');
 Route::POST('/inventory/product/destroy/{id}', [App\Http\Controllers\InventoryController::class, 'destroy'])->name('inventory-destroy');
+
+Route::GET('/dashboard', [AdminDashboard::class, 'index'])->name('admin-dashboard');
 
 use App\Http\Controllers\HomeController;
 

@@ -9,6 +9,8 @@
                     <thead>
                         <tr>
                             <th class="text-center">ID</th>
+                            <th class="text-center">Customer Name</th>
+                            <th class="text-center">Product Name</th>
                             <th class="text-center">Quantity</th>
                             <th class="text-center">Total Price</th>
                             <th class="text-center">Payment Status</th>
@@ -20,6 +22,12 @@
                             <tr>
                                 <td class="text-center">
                                     {{ $order['id'] }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $order['userName'] }}
+                                </td>
+                                <td class="text-center">
+                                    {{ $order['productName'] }}
                                 </td>
                                 <td class="text-center">
                                     {{ $order['quantity'] }}
