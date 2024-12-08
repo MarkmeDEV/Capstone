@@ -105,6 +105,7 @@ class OrderController extends Controller
         $data = [
             'id' => $id,
             'products' => $products,
+            'name' => $orderItem->name ?? 'Order Name',
             'totalPrice' => $totalPrice,
             'orderStatus' => $orderItem->order_status,
             'orderAddress' => $shippingAddress,

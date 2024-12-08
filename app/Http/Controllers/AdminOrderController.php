@@ -221,7 +221,7 @@ class AdminOrderController extends Controller
         $order = Order::find($id);
         $order->order_status = $request->status;
         $order->save();
-        
+
         return redirect()->route('staff-order-show', $id);
     }
 }

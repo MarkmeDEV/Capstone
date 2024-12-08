@@ -1,5 +1,5 @@
-1. Payment notification also in customer
-2. forgot password
+1. Payment notification also in customer 
+2. forgot password - DONE
 3. sorting / filter products - DONE
 4. Dashboard chart report - DONE
 5. customer information orders - DONE
