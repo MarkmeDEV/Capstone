@@ -11,7 +11,7 @@
             <div class="card stats-card">
                 <div class="card-body">
                     <h5 class="card-title text-primary">Total Users</h5>
-                    <p class="card-text text-success" id="total-users">1,500</p> <!-- Dummy Data -->
+                    <p class="card-text text-success" id="total-users">{{ $userCount }}</p> <!-- Dummy Data -->
                 </div>
             </div>
         </div>
@@ -20,18 +20,8 @@
         <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="card stats-card">
                 <div class="card-body">
-                    <h5 class="card-title text-primary">Total Sales</h5>
-                    <p class="card-text text-success" id="total-sales">$25,000</p> <!-- Dummy Data -->
-                </div>
-            </div>
-        </div>
-
-        <!-- Total Orders Card -->
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <div class="card stats-card">
-                <div class="card-body">
                     <h5 class="card-title text-primary">Total Orders</h5>
-                    <p class="card-text text-success" id="total-orders">350</p> <!-- Dummy Data -->
+                    <p class="card-text text-success" id="total-sales">{{ $orderCount }}</p> <!-- Dummy Data -->
                 </div>
             </div>
         </div>
@@ -41,7 +31,7 @@
             <div class="card stats-card">
                 <div class="card-body">
                     <h5 class="card-title text-primary">Total Products</h5>
-                    <p class="card-text text-success" id="total-products">120</p> <!-- Dummy Data -->
+                    <p class="card-text text-success" id="total-products">{{ $productCount }}</p> <!-- Dummy Data -->
                 </div>
             </div>
         </div>

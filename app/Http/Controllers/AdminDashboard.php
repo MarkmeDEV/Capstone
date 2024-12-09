@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\Products;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminDashboard extends Controller
@@ -14,7 +17,10 @@ class AdminDashboard extends Controller
     public function index()
     {
         //
-        return view('admin.dashboard.index');
+        $userCount = User::count();
+        $orderCount = Order::count();
+        $productCount = Products::count();
+        return view('admin.dashboard.index', compact('userCount', 'orderCount','productCount'));
     }
 
     /**
