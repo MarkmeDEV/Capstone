@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderStatusUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\{
@@ -18,6 +19,7 @@ use App\Models\{
 };
 use DateTime;
 use DateTimeZone;
+use Illuminate\Support\Facades\Mail;
 
 class AdminOrderController extends Controller
 {
@@ -221,7 +223,12 @@ class AdminOrderController extends Controller
         $order = Order::find($id);
         $order->order_status = $request->status;
         $order->save();
-
+        
+        if ($order->order_status === 'To Ship') {
+            // Send email to the user
+            Mail::to($order->user->email)->send(new OrderStatusUpdated($order));
+        }
+    
         return redirect()->route('staff-order-show', $id);
     }
 }
