@@ -20,7 +20,16 @@ class AdminDashboard extends Controller
         $userCount = User::count();
         $orderCount = Order::count();
         $productCount = Products::count();
-        return view('admin.dashboard.index', compact('userCount', 'orderCount','productCount'));
+        
+        $ordersPerDay = Order::selectRaw('DATE(created_at) as date, COUNT(*) as count')
+        ->groupBy('date')
+        ->orderBy('date', 'asc') 
+        ->get();
+
+        $labels = $ordersPerDay->pluck('date')->toArray();
+        $data = $ordersPerDay->pluck('count')->toArray();
+
+        return view('admin.dashboard.index', compact('userCount', 'orderCount', 'productCount', 'labels', 'data'));
     }
 
     /**

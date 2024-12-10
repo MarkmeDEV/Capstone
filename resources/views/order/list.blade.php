@@ -23,7 +23,7 @@
                                     {{ $order['id'] }}
                                 </td>
                                 <td class="text-center">
-                                    <div>{{ $order['name'] }}</div>
+                                    <div>{{ $order['name'] ?? "N/A as of now." }}</div>
                                 </td>
                                 <td class="text-center">
                                     {{ $order['quantity'] }}

@@ -56,9 +56,9 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    // Dummy Data for Chart (Replace with dynamic data if needed)
-    const labels = ["2024-12-01", "2024-12-02", "2024-12-03", "2024-12-04", "2024-12-05", "2024-12-06"];
-    const data = [20, 30, 50, 45, 70, 80]; // Dummy order counts for each day
+    // Use the dynamic data from the controller
+    const labels = @json($labels);  // The dates
+    const data = @json($data);      // The order counts
 
     // Create the Line Chart
     const ctx = document.getElementById('ordersPerDayChart').getContext('2d');
@@ -86,12 +86,13 @@
                 y: {
                     beginAtZero: true,
                     ticks: {
-                        stepSize: 20
+                        stepSize: 1 // Adjust if needed based on your order count
                     }
                 }
             }
         }
-    }); // End of Chart instantiation
+    });
 </script>
+
 
 @endsection
